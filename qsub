@@ -10,7 +10,7 @@ use Pod::Usage;
 =head1 NAME
 
 qsub	a tool to simplify "cds task run" command
-
+by shidishen
 =head1 USAGE
 
 qsub -t <threads> -vf <memory> [-gpu L4] [-p] -i <image> <script.sh>
