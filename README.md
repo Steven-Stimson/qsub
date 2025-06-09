@@ -1,5 +1,5 @@
 ## Usage:
-```qsub -t <threads> -vf <memory> [-gpu L4] [-p] -i <image> <script.sh>```
+```qsub -t <threads> -vf <memory> [-g L4] [-p] -i <image> <script.sh>```
 
 please modify image_url.list
 ## Options:
