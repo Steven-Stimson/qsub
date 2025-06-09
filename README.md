@@ -1,19 +1,19 @@
 ## Usage:
-qsub -t <threads> -vf <memory> [-gpu L4] [-p] -i <image> <script.sh>
+```qsub -t <threads> -vf <memory> [-gpu L4] [-p] -i <image> <script.sh>```
+
 please modify image_url.list
 ## Options:
-```
--t threads |default: 1
+`-t` threads |default: 1
 
--vf memory |default: 4
+`-vf` memory |default: 4
 
--gpu gpu | [L4]
+`-gpu` gpu | [L4]
 
--p parallel
+`-p` parallel
 
--i image |default: miniconda
+`-i` image |default: miniconda
 
--s show command
+`-s` show command
 
--h | -help | --help help message
+`-h | -help | --help` help message
 ```
