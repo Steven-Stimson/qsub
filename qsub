@@ -67,14 +67,14 @@ while(<IN>){
 	$URL{$image_name} = $url;
 }
 close IN;
-
+$URL{$image} || die "Error: Invalid image! Please check images_url.list"
 
 my @scripts;
 foreach my $file(@ARGV){
 	next unless -f $file;
 	push(@scripts, abs_path($file));
 }
-@scripts == 0 && die "error: please validate path of scripts!!!";
+@scripts == 0 && die "Error: Please validate path of scripts!!!";
 
 
 
