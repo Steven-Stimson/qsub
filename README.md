@@ -16,4 +16,3 @@ please modify image_url.list
 `-s` show command
 
 `-h | -help | --help` help message
-```
