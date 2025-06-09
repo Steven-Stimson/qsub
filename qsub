@@ -53,7 +53,11 @@ $help && pod2usage(1);
 $image = "miniconda";
 $num_proc ||= 1;
 $vf ||= 4;
-$gpu ? $resource = "\"vf=${vf}g,num_proc=$num_proc,gpu=${gpu}\"" : $resource = "\"vf=${vf}g,num_proc=$num_proc\"";
+if($gpu){
+        $resource = "\"vf=${vf}g,num_proc=$num_proc,gpu=${gpu}\"";
+}else{
+	$resource = "\"vf=${vf}g,num_proc=$num_proc\"";
+}
 
 my %URL;
 open IN,dirname($0)."/image_url.list";
