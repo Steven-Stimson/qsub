@@ -47,7 +47,7 @@ GetOptions(
 )or pod2usage(1);
 
 $help && pod2usage(1);
-@ARGV>1 || pod2usage(1);
+@ARGV>0 || pod2usage(1);
 
 
 $image = "miniconda";
@@ -99,4 +99,4 @@ if(@scripts>1){
 	$command =  "dcs task run --type s -p $parashell -l $resource --image \"$URL{$image}\"\n";
 }
 
-	$show ? print $command : `$command`;
+	$show ? print $command : print(`$command`);
