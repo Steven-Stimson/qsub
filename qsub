@@ -40,7 +40,7 @@ GetOptions(
 	"t:i"	=>	\$num_proc,
 	"vf:i"	=>	\$vf,
 	"i:s"	=>	\$image,
-	"g:s"	=>	\$gpu,
+	"gpu:s"	=>	\$gpu,
 	"p"	=>	\$parallel,
 	"s"	=>	\$show,
 	"h|help|-help"	=>	\$help,
