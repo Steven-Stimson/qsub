@@ -37,13 +37,13 @@ please modify image_url.list
 my($num_proc, $vf, $gpu, $resource, $parallel, $image, $show, $help);
 
 GetOptions(
-	"t|threads|-threads:i"	=>	\$num_proc,
-	"vf|virtual_free|-virtual_free:i"	=>	\$vf,
-	"i|image|-image:s"	=>	\$image,
-	"g|gpu|-gpu:s"	=>	\$gpu,
-	"p|parallel|-parallel"	=>	\$parallel,
-	"s|show|-show"	=>	\$show,
-	"h|help|-help"	=>	\$help,
+	"t|threads:i"	=>	\$num_proc,
+	"vf|virtual_free:i"	=>	\$vf,
+	"i|image:s"	=>	\$image,
+	"g|gpu:s"	=>	\$gpu,
+	"p|parallel"	=>	\$parallel,
+	"s|show"	=>	\$show,
+	"h|help"	=>	\$help,
 )or pod2usage(1);
 
 $help && pod2usage(1);
