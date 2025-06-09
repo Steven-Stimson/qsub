@@ -67,7 +67,7 @@ while(<IN>){
 	$URL{$image_name} = $url;
 }
 close IN;
-$URL{$image} || die "Error: Invalid image! Please check images_url.list"
+$URL{$image} || die "Error: Invalid image! Please check images_url.list";
 
 my @scripts;
 foreach my $file(@ARGV){
