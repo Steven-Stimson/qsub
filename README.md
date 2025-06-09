@@ -3,16 +3,16 @@
 
 please modify image_url.list
 ## Options:
-`-t| -threads` threads |default: 1
+`-t| -threads`  threads | default: 1
 
-`-vf| -virtual_free` memory |default: 4
+`-vf| -virtual_free`  memory | default: 4
 
-`-g| -gpu` gpu | [L4]
+`-g| -gpu`  gpu | [L4]
 
-`-p| -parallel` parallel
+`-p| -parallel`  parallel
 
-`-i| -image` image |default: miniconda
+`-i| -image`  image | default: miniconda
 
-`-s| -show` show command
+`-s| -show`  show command
 
-`-h | -help` help message
+`-h | -help`  help message
