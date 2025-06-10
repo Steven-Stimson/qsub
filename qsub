@@ -50,7 +50,7 @@ $help && pod2usage(1);
 @ARGV>0 || pod2usage(1);
 
 
-$image = "miniconda";
+$image ||= "miniconda";
 $num_proc ||= 1;
 $vf ||= 4;
 if($gpu){
