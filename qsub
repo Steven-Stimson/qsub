@@ -60,7 +60,8 @@ if($gpu){
 }
 
 my %URL;
-open IN,dirname($0)."/image_url.list";
+#open IN,dirname($0)."/image_url.list";
+open IN, "-|","dcs image ls -a ";
 while(<IN>){
 	chomp;
 	my ($image_name, $url) = split/\s+/;
