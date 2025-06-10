@@ -85,7 +85,7 @@ if(@scripts>1){
 	foreach my $script(@scripts){
 		my $dir = dirname($script);
 		$script = basename($script);
-		print PARASHELL "cd $dir && sh $script\n";
+		print PARASHELL "cd $dir && sh $script 2>&1 | tee $script.log\n";
 	}
 	close PARASHELL;
 	my $parashell = abs_path("parallel.sh");
@@ -93,7 +93,7 @@ if(@scripts>1){
 }elsif(@scripts==1 && !$parallel){
 	my $dir = dirname($scripts[0]);
 	my $script = basename($scripts[0]);
-	$command =  "dcs task run --type s -i \"cd $dir sh $script\" -l $resource --image \"$URL{$image}\"\n";
+	$command =  "dcs task run --type s -i \"cd $dir sh $script 2>&1 | tee $script.log\" -l $resource --image \"$URL{$image}\"\n";
 }elsif(@scripts==1 && $parallel){
 	my $parashell = $scripts[0];
 	$command =  "dcs task run --type s -p $parashell -l $resource --image \"$URL{$image}\"\n";
