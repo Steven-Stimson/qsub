@@ -33,7 +33,6 @@ please modify image_url.list
 =item B<-h | -help | --help>	help message
 =cut
 
-
 my($num_proc, $vf, $gpu, $resource, $parallel, $image, $show, $help);
 
 GetOptions(
@@ -50,7 +49,7 @@ $help && pod2usage(1);
 @ARGV>0 || pod2usage(1);
 
 
-$image ||= "miniconda";
+$image ||= "miniforge";
 $num_proc ||= 1;
 $vf ||= 4;
 if($gpu){
@@ -76,8 +75,6 @@ foreach my $file(@ARGV){
 	push(@scripts, abs_path($file));
 }
 @scripts == 0 && die "Error: Please validate path of scripts!!!";
-
-
 
 my $command;
 
