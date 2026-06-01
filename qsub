@@ -60,14 +60,14 @@ if($gpu){
 
 my %URL;
 #open IN,dirname($0)."/image_url.list";
-open IN, "-|","dcs image ls -a ";
+open IN, "-|","dcs image ls -n $image";
 while(<IN>){
 	chomp;
 	my ($image_name, $url) = split/\s+/;
 	$URL{$image_name} = $url;
 }
 close IN;
-$URL{$image} || die "Error: Invalid image! Please check `dcs image ls -a`";
+$URL{$image} || die "Error: Invalid image! Please check `dcs image ls -n <Image Name>`";
 
 my @scripts;
 foreach my $file(@ARGV){
