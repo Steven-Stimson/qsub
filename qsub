@@ -1,0 +1,107 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+use Getopt::Long;
+use Cwd 'abs_path';
+use File::Basename;
+use Pod::Usage;
+
+
+=head1 NAME
+
+qsub	a tool to simplify "cds task run" command
+by shidishen
+=head1 USAGE
+
+qsub -t <threads> -vf <memory> [-gpu L4] [-p] -i <image> <script.sh>
+please modify image_url.list
+
+=head1 OPTIONS
+
+=item B<-t>	threads |default: 1
+
+=item B<-vf>	memory  |default: 4
+
+=item B<-gpu>	gpu	| [L4]
+
+=item B<-p>	parallel
+
+=item B<-i>	image   |default: miniconda
+
+=item B<-s>	show command
+
+=item B<-h | -help | --help>	help message
+=cut
+
+my($num_proc, $vf, $gpu, $resource, $parallel, $image, $url, $show, $help);
+
+GetOptions(
+	"t|threads:i"	=>	\$num_proc,
+	"vf|virtual_free:i"	=>	\$vf,
+	"i|image:s"	=>	\$image,
+	"u|url:s"	=>	\$url,
+	"g|gpu:s"	=>	\$gpu,
+	"p|parallel"	=>	\$parallel,
+	"s|show"	=>	\$show,
+	"h|help"	=>	\$help,
+)or pod2usage(1);
+
+$help && pod2usage(1);
+@ARGV>0 || pod2usage(1);
+
+$num_proc ||= 1;
+$vf ||= 4;
+
+if($gpu){
+        $resource = "\"vf=${vf}g,num_proc=$num_proc,gpu=${gpu}\"";
+}else{
+	$resource = "\"vf=${vf}g,num_proc=$num_proc\"";
+}
+
+if(!$url){
+	my %URL;
+	#open IN,dirname($0)."/image_url.list";
+	open IN, "-|","dcs image ls -n $image";
+	while(<IN>){
+		chomp;
+		my ($image_name, $url) = split/\s+/;
+		$URL{$image_name} = $url;
+	}
+	close IN;
+	$URL{$image} || die "Error: Invalid image! Please check `dcs image ls -n $image`";
+	$url = $URL{$image} 
+}
+
+my @scripts;
+foreach my $file(@ARGV){
+	next unless -f $file;
+	push(@scripts, abs_path($file));
+}
+@scripts == 0 && die "Error: Please validate path of scripts!!!";
+
+my $command;
+
+if(@scripts>1){
+	open PARASHELL,">parallel.sh";
+	foreach my $script(@scripts){
+		my $dir = dirname($script);
+		$script = basename($script);
+		print PARASHELL "cd $dir && sh $script 1> >(tee $script.out) 2> >(tee $script.err)\n";
+	}
+	close PARASHELL;
+	my $parashell = abs_path("parallel.sh");
+	$command = "dcs task run --type s -p $parashell -l $resource --image \"$url\"\n";
+}elsif(@scripts==1 && !$parallel){
+	my $dir = dirname($scripts[0]);
+	my $script = basename($scripts[0]);
+	$command =  "dcs task run --type s -i \"cd $dir && sh $script 1> >(tee $script.out) 2> >(tee $script.err)\" -l $resource --image \"$url\"\n";
+}elsif(@scripts==1 && $parallel){
+	my $parashell = $scripts[0];
+	$command =  "dcs task run --type s -p $parashell -l $resource --image \"$url\"\n";
+}
+	if($show){
+		print $command;
+	}else{
+		chomp(my $taskID = `$command`);
+		`touch $taskID`;
+	}
