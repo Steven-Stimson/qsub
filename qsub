@@ -22,11 +22,13 @@ please modify image_url.list
 
 =item B<-vf>	memory  |default: 4
 
-=item B<-gpu>	gpu	| [L4]
+=item B<-gpu>	gpu	| [3080Ti | L4]
 
 =item B<-p>	parallel
 
-=item B<-i>	image   |default: miniconda
+=item B<-i>	image
+
+=item B<-u>	image url
 
 =item B<-s>	show command
 
