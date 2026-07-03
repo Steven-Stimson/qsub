@@ -1,5 +1,6 @@
 ## Usage:
 ```qsub -t <threads> -vf <memory> [-g 3080Ti] [-p] -i <image> <script.sh>```
+```qsub -t <threads> -vf <memory> [-g 3080Ti] [-p] -u <url> <script.sh>```
 
 ## Options:
 `-t| -threads`  threads | default: 1
