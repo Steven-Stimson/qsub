@@ -96,7 +96,7 @@ if(@scripts>1){
 }elsif(@scripts==1 && !$parallel){
 	my $dir = dirname($scripts[0]);
 	my $script = basename($scripts[0]);
-	$command =  "dcs task run --type s -i \"cd $dir && sh $script 1> >(tee $script.out) 2> >(tee $script.err)\" -l $resource --image \"$url\"\n";
+	$command =  "dcs task run --type s -i \"cd $dir && sh $script 3>&1 1> >(tee $script.out) 2> >(tee $script.err >&3)\" -l $resource --image \"$url\"\n";
 }elsif(@scripts==1 && $parallel){
 	my $parashell = $scripts[0];
 	$command =  "dcs task run --type s -p $parashell -l $resource --image \"$url\"\n";
