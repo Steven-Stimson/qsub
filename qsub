@@ -88,7 +88,7 @@ if(@scripts>1){
 	foreach my $script(@scripts){
 		my $dir = dirname($script);
 		$script = basename($script);
-		print PARASHELL "cd $dir && sh $script 1> >(tee $script.out) 2> >(tee $script.err)\n";
+		print PARASHELL "cd $dir && sh $script 3>&1 1> >(tee $script.out) 2> >(tee $script.err >&3)\n";
 	}
 	close PARASHELL;
 	my $parashell = abs_path("parallel.sh");
